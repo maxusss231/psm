@@ -1,12 +1,10 @@
 "use client"
 
-import type React from "react"
-
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Send, Paperclip, Clock, CheckCheck, HelpCircle, User } from "lucide-react"
+import { Send, Paperclip, HelpCircle, User, CheckCheck, Clock } from "lucide-react"
 
 interface Message {
   id: string
@@ -15,18 +13,11 @@ interface Message {
   timestamp: Date
   status?: "sent" | "delivered" | "read"
   attachments?: { name: string; size: string; type: string }[]
-  isWelcome?: boolean
   isFAQ?: boolean
   faqOptions?: { id: string; question: string; answer: string }[]
 }
 
-interface FAQItem {
-  id: string
-  question: string
-  answer: string
-}
-
-const faqData: FAQItem[] = [
+const faqData = [
   {
     id: "1",
     question: "Как заказать запчасти для станка?",
@@ -45,105 +36,34 @@ const faqData: FAQItem[] = [
     answer:
       "Записаться на ТО можно через раздел 'Бронирование' в личном кабинете или по телефону +7 (495) 123-45-67. Рекомендуем планировать ТО заранее.",
   },
-  {
-    id: "4",
-    question: "Что делать если станок не включается?",
-    answer:
-      "Проверьте: 1) Подключение к сети питания 2) Состояние предохранителей 3) Положение аварийной кнопки STOP 4) Блокировки безопасности. Если проблема не решена - обратитесь к специалисту.",
-  },
-  {
-    id: "5",
-    question: "Как получить техническую документацию?",
-    answer:
-      "Техническая документация доступна в разделе 'Документы' вашего личного кабинета. Также можете запросить дополнительные материалы у нашего специалиста.",
-  },
 ]
 
 export default function ChatPage() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
-      text: "Добро пожаловать в техническую поддержку ПромСтройМаш! 👋\n\nЯ помогу вам найти ответы на часто задаваемые вопросы или соединю с нашим специалистом.\n\nВыберите один из вариантов ниже:",
+      text: "Добро пожаловать в поддержку! 👋\n\nЯ помогу вам найти ответы на часто задаваемые вопросы или соединю с нашим специалистом.\n\nВыберите один из вариантов ниже:",
       sender: "bot",
       timestamp: new Date(),
-      isWelcome: true,
       isFAQ: true,
       faqOptions: faqData,
     },
   ])
-
   const [newMessage, setNewMessage] = useState("")
   const [isTyping, setIsTyping] = useState(false)
   const [operatorConnected, setOperatorConnected] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
-
+  // Скролл только по сообщениям
   useEffect(() => {
-    scrollToBottom()
+    if (messages.length > 1 && messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
   }, [messages])
-
-  const handleFAQClick = (faq: FAQItem) => {
-    // Add user question
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      text: faq.question,
-      sender: "user",
-      timestamp: new Date(),
-      status: "read",
-    }
-
-    setMessages((prev) => [...prev, userMessage])
-
-    // Add bot answer after delay
-    setTimeout(() => {
-      const botAnswer: Message = {
-        id: (Date.now() + 1).toString(),
-        text:
-          faq.answer +
-          "\n\nЕсли у вас остались вопросы, выберите другой вопрос из FAQ или нажмите 'Связаться с оператором'.",
-        sender: "bot",
-        timestamp: new Date(),
-        isFAQ: true,
-        faqOptions: faqData,
-      }
-      setMessages((prev) => [...prev, botAnswer])
-    }, 1000)
-  }
-
-  const handleConnectOperator = () => {
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      text: "Связаться с оператором",
-      sender: "user",
-      timestamp: new Date(),
-      status: "read",
-    }
-
-    setMessages((prev) => [...prev, userMessage])
-
-    setTimeout(() => {
-      setIsTyping(true)
-      setTimeout(() => {
-        setIsTyping(false)
-        setOperatorConnected(true)
-        const operatorMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          text: "Здравствуйте! Меня зовут Анна, я специалист технической поддержки. Опишите, пожалуйста, вашу проблему подробнее, и я помогу её решить.",
-          sender: "support",
-          timestamp: new Date(),
-        }
-        setMessages((prev) => [...prev, operatorMessage])
-      }, 2000)
-    }, 500)
-  }
 
   const handleSendMessage = () => {
     if (!newMessage.trim()) return
-
     const message: Message = {
       id: Date.now().toString(),
       text: newMessage,
@@ -151,149 +71,154 @@ export default function ChatPage() {
       timestamp: new Date(),
       status: "sent",
     }
-
     setMessages((prev) => [...prev, message])
     setNewMessage("")
-
-    // Simulate support response if operator is connected
+    // Симуляция ответа оператора
     if (operatorConnected) {
       setTimeout(() => {
         setIsTyping(true)
         setTimeout(() => {
           setIsTyping(false)
-          const supportMessage: Message = {
-            id: (Date.now() + 1).toString(),
-            text: "Спасибо за информацию. Я изучаю ваш запрос и подготовлю детальный ответ. Это займет несколько минут.",
-            sender: "support",
-            timestamp: new Date(),
-          }
-          setMessages((prev) => [...prev, supportMessage])
-        }, 2000)
-      }, 1000)
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: (Date.now() + 1).toString(),
+              text: "Спасибо за информацию! Мы рассмотрим ваш вопрос и ответим в ближайшее время.",
+              sender: "support",
+              timestamp: new Date(),
+            },
+          ])
+        }, 1500)
+      }, 800)
     }
   }
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault()
       handleSendMessage()
     }
   }
 
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString("ru-RU", {
-      hour: "2-digit",
-      minute: "2-digit",
-    })
+  const handleFAQClick = (faq: typeof faqData[0]) => {
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: Date.now().toString(),
+        text: faq.question,
+        sender: "user",
+        timestamp: new Date(),
+        status: "read",
+      },
+    ])
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: (Date.now() + 1).toString(),
+          text: faq.answer +
+            "\n\nЕсли у вас остались вопросы, выберите другой вопрос из FAQ или нажмите 'Связаться с оператором'.",
+          sender: "bot",
+          timestamp: new Date(),
+          isFAQ: true,
+          faqOptions: faqData,
+        },
+      ])
+    }, 1000)
   }
 
-  const formatDate = (date: Date) => {
-    const today = new Date()
-    const yesterday = new Date(today)
-    yesterday.setDate(yesterday.getDate() - 1)
-
-    if (date.toDateString() === today.toDateString()) {
-      return "Сегодня"
-    } else if (date.toDateString() === yesterday.toDateString()) {
-      return "Вчера"
-    } else {
-      return date.toLocaleDateString("ru-RU", {
-        day: "numeric",
-        month: "long",
-      })
-    }
+  const handleConnectOperator = () => {
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: Date.now().toString(),
+        text: "Связаться с оператором",
+        sender: "user",
+        timestamp: new Date(),
+        status: "read",
+      },
+    ])
+    setTimeout(() => {
+      setIsTyping(true)
+      setTimeout(() => {
+        setIsTyping(false)
+        setOperatorConnected(true)
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: (Date.now() + 1).toString(),
+            text: "Здравствуйте! Меня зовут Анна, я специалист поддержки. Опишите, пожалуйста, вашу проблему подробнее.",
+            sender: "support",
+            timestamp: new Date(),
+          },
+        ])
+      }, 1200)
+    }, 500)
   }
+
+  const formatTime = (date: Date) =>
+    date.toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" })
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="h-full flex flex-col max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="bg-white border-b border-gray-200 px-6 py-4 flex-shrink-0 shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">Техническая поддержка</h1>
-              <p className="text-sm text-gray-600 mt-1">
-                {operatorConnected ? (
-                  <span className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                    Чат с специалистом Анной
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-yellow-500 rounded-full"></span>
-                    Автоматический помощник
-                  </span>
-                )}
-              </p>
-            </div>
+    <div className="flex flex-col h-full min-h-0 bg-gray-50 text-[15px]">
+      {/* Header */}
+      <header className="bg-white border-b border-gray-200 px-2 py-2 flex-shrink-0 shadow-sm sticky top-0 z-10">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-lg sm:text-xl font-bold text-gray-900">Техническая поддержка</h1>
+            <p className="text-[11px] sm:text-xs text-gray-600 mt-0.5">
+              {operatorConnected ? (
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                  Чат с оператором
+                </span>
+              ) : (
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-yellow-500 rounded-full"></span>
+                  Автоматический помощник
+                </span>
+              )}
+            </p>
           </div>
         </div>
+      </header>
 
-        {/* Chat Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
-          {messages.map((message, index) => {
-            const showDate = index === 0 || formatDate(message.timestamp) !== formatDate(messages[index - 1].timestamp)
-
+      {/* Messages */}
+      <main className="flex-1 flex flex-col min-h-0">
+        <div className="flex-1 overflow-y-auto px-1 sm:px-3 py-2 space-y-2 min-h-0" style={{ background: "#f8fafc" }}>
+          {messages.map((message, idx) => {
+            const showDate = idx === 0 ||
+              messages[idx].timestamp.toDateString() !== messages[idx - 1].timestamp.toDateString()
             return (
               <div key={message.id}>
                 {showDate && (
-                  <div className="flex justify-center mb-4">
+                  <div className="flex justify-center mb-2">
                     <span className="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full">
-                      {formatDate(message.timestamp)}
+                      {message.timestamp.toLocaleDateString("ru-RU", { day: "numeric", month: "long" })}
                     </span>
                   </div>
                 )}
-
                 <div className={`flex gap-3 ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
                   {(message.sender === "support" || message.sender === "bot") && (
                     <Avatar className="w-8 h-8 flex-shrink-0">
-                      <AvatarFallback
-                        className={
-                          message.sender === "bot"
-                            ? "bg-yellow-100 text-yellow-700 text-xs font-medium"
-                            : "bg-red-100 text-red-700 text-xs font-medium"
-                        }
-                      >
+                      <AvatarFallback className={message.sender === "bot" ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700"}>
                         {message.sender === "bot" ? "🤖" : "АН"}
                       </AvatarFallback>
                     </Avatar>
                   )}
-
-                  <div className={`max-w-md ${message.sender === "user" ? "order-2" : ""}`}>
-                    <div
-                      className={`rounded-2xl px-4 py-3 ${
-                        message.sender === "user"
-                          ? "bg-red-600 text-white"
-                          : message.sender === "bot"
-                            ? "bg-yellow-50 border border-yellow-200 text-gray-900"
-                            : "bg-white border border-gray-200 text-gray-900 shadow-sm"
-                      }`}
-                    >
-                      <p className="text-sm whitespace-pre-wrap">{message.text}</p>
-
-                      {message.attachments && (
-                        <div className="mt-2 space-y-2">
-                          {message.attachments.map((attachment, i) => (
-                            <div
-                              key={i}
-                              className={`flex items-center gap-2 p-2 rounded-lg ${
-                                message.sender === "user" ? "bg-red-500" : "bg-gray-50"
-                              }`}
-                            >
-                              <Paperclip className="w-4 h-4" />
-                              <div className="flex-1 min-w-0">
-                                <p className="text-xs font-medium truncate">{attachment.name}</p>
-                                <p className="text-xs opacity-70">{attachment.size}</p>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-
-                      {/* FAQ Options */}
+                  <div className={`max-w-xs sm:max-w-md ${message.sender === "user" ? "order-2" : ""}`}>
+                    <div className={`rounded-xl px-3 py-2 text-xs shadow-sm ${
+                      message.sender === "user"
+                        ? "bg-red-600 text-white"
+                        : message.sender === "bot"
+                          ? "bg-yellow-50 border border-yellow-200 text-gray-900"
+                          : "bg-white border border-gray-200 text-gray-900"
+                    }`}>
+                      <p className="whitespace-pre-wrap">{message.text}</p>
+                      {/* FAQ */}
                       {message.isFAQ && message.faqOptions && (
                         <div className="mt-4 space-y-2">
-                          <p className="text-sm font-medium text-gray-700 mb-3">Часто задаваемые вопросы:</p>
+                          <p className="text-xs font-medium text-gray-700 mb-2">Часто задаваемые вопросы:</p>
                           <div className="grid gap-2">
                             {message.faqOptions.map((faq) => (
                               <Button
@@ -320,12 +245,7 @@ export default function ChatPage() {
                         </div>
                       )}
                     </div>
-
-                    <div
-                      className={`flex items-center gap-1 mt-1 text-xs text-gray-500 ${
-                        message.sender === "user" ? "justify-end" : "justify-start"
-                      }`}
-                    >
+                    <div className={`flex items-center gap-1 mt-0.5 text-[11px] text-gray-500 ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
                       <span>{formatTime(message.timestamp)}</span>
                       {message.sender === "user" && message.status && (
                         <div className="flex items-center">
@@ -336,75 +256,72 @@ export default function ChatPage() {
                       )}
                     </div>
                   </div>
-
                   {message.sender === "user" && (
                     <Avatar className="w-8 h-8 flex-shrink-0">
-                      <AvatarFallback className="bg-gray-100 text-gray-600 text-xs font-medium">ВЫ</AvatarFallback>
+                      <AvatarFallback className="bg-gray-100 text-gray-600">ВЫ</AvatarFallback>
                     </Avatar>
                   )}
                 </div>
               </div>
             )
           })}
-
           {isTyping && (
             <div className="flex gap-3 justify-start">
               <Avatar className="w-8 h-8 flex-shrink-0">
-                <AvatarFallback className="bg-red-100 text-red-700 text-xs font-medium">АН</AvatarFallback>
+                <AvatarFallback className="bg-red-100 text-red-700">АН</AvatarFallback>
               </Avatar>
               <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-sm">
                 <div className="flex gap-1">
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                  <div
-                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                    style={{ animationDelay: "0.1s" }}
-                  ></div>
-                  <div
-                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                    style={{ animationDelay: "0.2s" }}
-                  ></div>
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }}></div>
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
                 </div>
               </div>
             </div>
           )}
-
           <div ref={messagesEndRef} />
         </div>
-
-        {/* Message Input */}
-        <div className="bg-white border-t border-gray-200 p-4 flex-shrink-0 shadow-sm">
-          <div className="flex items-end gap-3 max-w-4xl mx-auto">
-            <div className="flex-1">
-              <div className="flex items-center gap-2 bg-gray-50 rounded-2xl px-4 py-3 border border-gray-200 focus-within:border-red-500 focus-within:ring-1 focus-within:ring-red-500">
-                <Input
-                  value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder={operatorConnected ? "Введите сообщение..." : "Выберите вопрос выше или напишите свой..."}
-                  className="border-0 bg-transparent p-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-gray-900 placeholder:text-gray-500"
-                />
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-8 w-8 p-0 hover:bg-gray-100"
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <Paperclip className="w-4 h-4 text-gray-500" />
-                </Button>
-              </div>
+        {/* Input */}
+        <form
+          className="bg-white border-t border-gray-200 px-2 py-2 flex items-end gap-2 shadow-sm sticky bottom-0 z-10 w-full"
+          onSubmit={e => {
+            e.preventDefault();
+            handleSendMessage();
+          }}
+          autoComplete="off"
+        >
+          <div className="flex-1">
+            <div className="flex items-center gap-1 bg-gray-50 rounded-xl px-2 py-2 border border-gray-200 focus-within:border-red-500 focus-within:ring-1 focus-within:ring-red-500">
+              <Input
+                value={newMessage}
+                onChange={e => setNewMessage(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder={operatorConnected ? "Введите сообщение..." : "Выберите вопрос выше или напишите свой..."}
+                className="border-0 bg-transparent p-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-gray-900 placeholder:text-gray-500"
+                autoComplete="off"
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 p-0 hover:bg-gray-100"
+                onClick={() => fileInputRef.current?.click()}
+                tabIndex={-1}
+              >
+                <Paperclip className="w-4 h-4 text-gray-500" />
+              </Button>
             </div>
-            <Button
-              onClick={handleSendMessage}
-              disabled={!newMessage.trim()}
-              className="h-12 w-12 rounded-full p-0 bg-red-600 hover:bg-red-700 text-white"
-            >
-              <Send className="w-4 h-4" />
-            </Button>
           </div>
-
+          <Button
+            type="submit"
+            disabled={!newMessage.trim()}
+            className="h-9 w-9 rounded-full p-0 bg-red-600 hover:bg-red-700 text-white"
+          >
+            <Send className="w-4 h-4" />
+          </Button>
           <input ref={fileInputRef} type="file" className="hidden" multiple accept="image/*,.pdf,.doc,.docx" />
-        </div>
-      </div>
+        </form>
+      </main>
     </div>
   )
 }

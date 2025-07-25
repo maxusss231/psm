@@ -100,7 +100,7 @@ const statusIcons = {
 export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="p-6 max-w-7xl mx-auto">
+      <div className="p-6">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Панель управления</h1>
@@ -236,7 +236,9 @@ export default function DashboardPage() {
                                 <p className="text-gray-600 text-sm">
                                   Плановая поставка: <span className="font-medium">{order.deliveryDate}</span>
                                 </p>
+                                {order.id !== "ORD-2024-001" && (
                                 <p className="text-gray-500 text-sm mt-1">{order.description}</p>
+                                )}
                               </div>
                             </div>
                             {/* Amount and Actions */}

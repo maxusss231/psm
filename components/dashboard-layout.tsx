@@ -50,7 +50,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const pathname = usePathname()
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-gray-50 z-40 relative">
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
         <div className="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden" onClick={() => setSidebarOpen(false)} />
@@ -86,7 +86,12 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           {/* Navigation */}
           <nav className="flex-1 p-4 space-y-1 overflow-y-auto min-h-0">
             {navigation.map((item) => {
-              const isActive = pathname === item.href
+              let isActive = false;
+              if (item.href === "/dashboard") {
+                isActive = pathname === "/dashboard";
+              } else {
+                isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+              }
               return (
                 <Link
                   key={item.name}
@@ -127,7 +132,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Mobile header */}
-        <div className="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex-shrink-0 shadow-sm">
+        <div className="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex-shrink-0 shadow-sm z-40 relative">
           <div className="flex items-center justify-between">
             <Button variant="ghost" size="sm" onClick={() => setSidebarOpen(true)}>
               <Menu className="w-5 h-5" />
@@ -141,7 +146,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         </div>
 
         {/* Page content */}
-        <div className="flex-1 overflow-y-auto">{children}</div>
+        <div className="flex-1 w-full">{children}</div>
       </div>
     </div>
   )

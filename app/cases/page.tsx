@@ -172,7 +172,6 @@ export default function CasesPage() {
 
               <Card className="bg-gray-50 border-0">
                 <CardContent className="p-8">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Результаты</h3>
                   <div className="grid md:grid-cols-3 gap-6">
                     <div className="text-center">
                       <div className="text-3xl font-bold text-red-600 mb-2">+120%</div>
@@ -381,7 +380,7 @@ export default function CasesPage() {
 
                 <Card className="bg-white border-0 shadow-sm text-center">
                   <CardContent className="p-6">
-                    <Award className="w-8 h-8 text-red-500 mx-auto mb-4" />
+                    <Award className="w-8 h-8 text-yellow-500 mx-auto mb-4" />
                     <div className="text-2xl font-bold text-gray-900 mb-2">15</div>
                     <div className="text-sm text-gray-600">Отраслевых наград</div>
                   </CardContent>
@@ -397,7 +396,7 @@ export default function CasesPage() {
 
                 <Card className="bg-white border-0 shadow-sm text-center">
                   <CardContent className="p-6">
-                    <CheckCircle className="w-8 h-8 text-red-500 mx-auto mb-4" />
+                    <CheckCircle className="w-8 h-8 text-yellow-500 mx-auto mb-4" />
                     <div className="text-2xl font-bold text-gray-900 mb-2">₽50 млрд</div>
                     <div className="text-sm text-gray-600">Общий объем проектов</div>
                   </CardContent>

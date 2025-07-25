@@ -172,7 +172,7 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto p-6">
+      <div className="p-6">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-4 mb-6">

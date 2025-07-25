@@ -130,7 +130,7 @@ export default function OrdersPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="p-6 max-w-7xl mx-auto">
+      <div className="p-6">
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
           <div>
@@ -233,22 +233,6 @@ export default function OrdersPage() {
                         </p>
                         <p className="text-gray-500 text-sm mt-1">{order.description}</p>
                       </div>
-
-                      {/* Progress Bar */}
-                      {order.status !== "Отменен" && order.status !== "Выполнен" && (
-                        <div className="mt-4">
-                          <div className="flex items-center justify-between text-sm mb-1">
-                            <span className="text-gray-600 font-medium">Прогресс выполнения</span>
-                            <span className="font-semibold text-gray-900">{order.progress}%</span>
-                          </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2">
-                            <div
-                              className="bg-red-600 h-2 rounded-full transition-all duration-300"
-                              style={{ width: `${order.progress}%` }}
-                            />
-                          </div>
-                        </div>
-                      )}
                     </div>
 
                     {/* Amount and Actions */}

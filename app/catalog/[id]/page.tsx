@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowRight, Download, Settings, Wrench, Zap, Shield } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { use } from "react"
 
 // Mock data for series details
 const seriesData = {
@@ -105,8 +106,9 @@ const seriesData = {
   },
 }
 
-export default function SeriesPage({ params }: { params: { id: string } }) {
-  const seriesId = Number.parseInt(params.id)
+export default function SeriesPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params)
+  const seriesId = Number.parseInt(id)
   const series = seriesData[seriesId as keyof typeof seriesData]
 
   if (!series) {

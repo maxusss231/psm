@@ -192,7 +192,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl">
             <Badge className="mb-6 bg-yellow-100 text-yellow-700 px-4 py-2 text-sm font-medium">О компании</Badge>
-            <h1 className="text-5xl lg:text-7xl font-bold mb-8 leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-8 leading-tight">
               ПромСтройМаш
               <span className="block text-yellow-400 text-4xl lg:text-5xl mt-2">Российские технологии</span>
             </h1>
@@ -222,7 +222,7 @@ export default function AboutPage() {
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto text-center">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-10 leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-10 leading-tight text-center">
               Оптимальные производственные решения для
               <span className="block text-yellow-600">широкого спектра применений</span>
             </h2>
@@ -270,7 +270,7 @@ export default function AboutPage() {
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Наши технологии и решения</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 text-center">Наши технологии и решения</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Полный спектр современных технологий металлообработки и автоматизации для различных отраслей
               промышленности
@@ -339,7 +339,7 @@ export default function AboutPage() {
             </div>
 
             <div>
-              <h2 className="text-4xl lg:text-5xl font-bold mb-8">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-8">
                 ЕДИНАЯ <span className="text-yellow-400">ФИЛОСОФИЯ</span>
               </h2>
               <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
@@ -383,11 +383,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Timeline Section */}
+      {/*
+      Timeline Section
       <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">История развития</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 text-center">История развития</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Путь от небольшой мастерской до ведущего производителя промышленного оборудования в России
             </p>
@@ -416,12 +417,13 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      */}
 
       {/* Values Section */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Наши ценности</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 text-center">Наши ценности</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Принципы, которые определяют нашу работу и отношения с клиентами
             </p>
@@ -482,7 +484,7 @@ export default function AboutPage() {
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Сертификаты и награды</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 text-center">Сертификаты и награды</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Наше качество подтверждено международными и российскими сертификатами соответствия
             </p>
@@ -525,7 +527,7 @@ export default function AboutPage() {
       <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 text-center">
               Больше о компании <span className="text-yellow-600">ПромСтройМаш</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">

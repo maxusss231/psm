@@ -140,7 +140,7 @@ export default function ServiceRequestsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="p-6 max-w-7xl mx-auto">
+      <div className="p-6">
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
           <div>

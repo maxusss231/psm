@@ -8,8 +8,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div className="lg:col-span-1">
-            <div className="mb-8">
-              <img src="/logo_psm.svg" alt="ПСМ Logo" className="h-12 w-auto" />
+            <div className="flex items-center space-x-3 mb-8">
+              <div className="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">ПСМ</span>
+              </div>
+              <span className="text-2xl font-bold text-gray-900">ПромСтройМаш</span>
             </div>
             <p className="text-gray-600 mb-8 leading-relaxed">
               Ведущий российский производитель промышленного оборудования. Более 25 лет опыта в создании качественных

@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Phone, Mail, Menu, User } from "lucide-react"
 import { ContactModal } from "@/components/contact-modal"
@@ -25,7 +26,7 @@ export function Header() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center">
-              <img src="/logo_psm.svg" alt="ПСМ Logo" className="h-10 w-auto" />
+              <Image src="/images/logo.jpeg" alt="PSM Logo" width={48} height={32} className="h-8 w-auto" priority />
             </Link>
 
             {/* Desktop Navigation */}
@@ -89,7 +90,7 @@ export function Header() {
                     {/* Header */}
                     <div className="flex items-center justify-between p-6 border-b border-gray-200">
                       <div className="flex items-center">
-                        <img src="/logo_psm.svg" alt="ПСМ Logo" className="h-8 w-auto" />
+                        <Image src="/images/logo.jpeg" alt="PSM Logo" width={48} height={32} className="h-8 w-auto" priority />
                       </div>
                     </div>
 

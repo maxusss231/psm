@@ -197,11 +197,11 @@ export default function CatalogPage() {
             <Badge className="mb-6 bg-yellow-100 text-yellow-700 px-4 py-2 text-sm font-medium">
               Каталог продукции
             </Badge>
-            <h1 className="text-5xl lg:text-7xl font-bold mb-8 leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-8 leading-tight">
               Металлообрабатывающее
-              <span className="block text-yellow-400 text-4xl lg:text-5xl mt-2">оборудование</span>
+              <span className="block text-yellow-400 text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2">оборудование</span>
             </h1>
-            <p className="text-xl lg:text-2xl text-gray-300 mb-10 leading-relaxed max-w-3xl">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-10 leading-relaxed max-w-3xl">
               Универсальные решения для точных производственных задач. Полный спектр станков и оборудования для
               металлообработки от ведущего российского производителя
             </p>
@@ -216,7 +216,7 @@ export default function CatalogPage() {
       {/* Overview Section */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">ОБЗОР ПРОДУКЦИИ</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-12 text-center">ОБЗОР ПРОДУКЦИИ</h2>
 
           {Object.entries(groupedSeries).map(([category, categoryItems]) => (
             <div key={category} className="mb-16">
@@ -248,10 +248,10 @@ export default function CatalogPage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-4xl font-bold text-gray-900 mb-10 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-10 text-center">
               Основные компоненты металлообрабатывающих станков
             </h2>
-            <div className="text-lg text-gray-600 space-y-6 leading-relaxed">
+            <div className="text-base sm:text-lg text-gray-600 space-y-6 leading-relaxed">
               <p>
                 Высокоточные переменные скорости и производственная точность основаны на высокотехнологичном станочном
                 оборудовании. Нормальная конструкция облегчает снятие стружки и обслуживание системы. Станина является
@@ -275,7 +275,7 @@ export default function CatalogPage() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-4xl font-bold text-gray-900 mb-10 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-10 text-center">
               Операции обработки, выполняемые металлообрабатывающими станками
             </h2>
             <div className="grid md:grid-cols-2 gap-12">
@@ -320,7 +320,7 @@ export default function CatalogPage() {
                 </ul>
               </div>
             </div>
-            <p className="mt-10 text-gray-600 text-lg text-center">
+            <p className="mt-10 text-gray-600 text-base sm:text-lg text-center">
               Универсальные станки можно найти в промышленности как индивидуальные, обычные, управляемые ЧПУ и
               криминальные станки.
             </p>
@@ -332,7 +332,7 @@ export default function CatalogPage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-4xl font-bold text-gray-900 mb-10 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-10 text-center">
               Правильная серия для каждого требования
             </h2>
             <div className="text-lg text-gray-600 space-y-6 leading-relaxed">
@@ -360,7 +360,7 @@ export default function CatalogPage() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-4xl font-bold text-gray-900 mb-10 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-10 text-center">
               Определенные свойства и богатство вариантов
             </h2>
             <div className="text-lg text-gray-600 mb-10 leading-relaxed">
@@ -415,7 +415,7 @@ export default function CatalogPage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-12 text-center">
               Важные вопросы о металлообрабатывающих станках
             </h2>
             <Accordion type="single" collapsible className="space-y-4">
