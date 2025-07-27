@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Phone, Mail, MapPin, Clock, ArrowRight } from "lucide-react"
+import Image from "next/image"
 
 export function Footer() {
   return (
@@ -9,9 +10,7 @@ export function Footer() {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-8">
-              <div className="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">ПСМ</span>
-              </div>
+              <Image src="/images/logo_psm.svg" alt="ПромСтройМаш" width={48} height={48} className="" />
               <span className="text-2xl font-bold text-gray-900">ПромСтройМаш</span>
             </div>
             <p className="text-gray-600 mb-8 leading-relaxed">
@@ -37,6 +36,21 @@ export function Footer() {
                   <div className="text-sm text-gray-500">Ответим в течение часа</div>
                 </div>
               </div>
+            </div>
+            {/* Социальные сети */}
+            <div className="flex space-x-4 mt-6">
+              <a href="https://rutube.ru/channel/32222825/" target="_blank" rel="noopener noreferrer" title="Rutube" className="transition-transform duration-200 hover:scale-110">
+                <Image src="/icon/rutube.svg" alt="Rutube" width={32} height={32} />
+              </a>
+              <a href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer" title="WhatsApp" className="transition-transform duration-200 hover:scale-110">
+                <Image src="/icon/wa.svg" alt="WhatsApp" width={32} height={32} />
+              </a>
+              <a href="https://vk.com/your_vk" target="_blank" rel="noopener noreferrer" title="ВКонтакте" className="transition-transform duration-200 hover:scale-110">
+                <Image src="/icon/vk.svg" alt="VK" width={32} height={32} />
+              </a>
+              <a href="https://t.me/promstroymash" target="_blank" rel="noopener noreferrer" title="Telegram" className="transition-transform duration-200 hover:scale-110">
+                <Image src="/icon/tg.svg" alt="Telegram" width={32} height={32} />
+              </a>
             </div>
           </div>
 

@@ -27,7 +27,7 @@ export function Header() {
         <div className="w-full px-4 sm:px-6 xl:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center">
-              <Image src="/images/logo.jpeg" alt="PSM Logo" width={48} height={32} className="h-8 w-auto" priority />
+              <Image src="/images/logo_psm.svg" alt="PSM Logo" width={48} height={32} className="h-8 w-auto" priority />
             </Link>
 
             {/* Desktop Navigation */}
